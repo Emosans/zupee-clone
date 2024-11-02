@@ -21,14 +21,14 @@ public class PlayerTurns : MonoBehaviour
     {
         if (player1turn)
         {
-            Debug.Log("player1 turn done");
+            //Debug.Log("player1 turn done");
             player1turn = false;
             player2turn = true;
         }
 
         else if (player2turn)
         {
-            Debug.Log("player2 turn done");
+            //Debug.Log("player2 turn done");
             player2turn = false;
             player1turn = true;
         }

@@ -8,6 +8,9 @@ public class DiceRoll : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player1text;
     [SerializeField] private TextMeshProUGUI player2text;
 
+    // pieces
+    [SerializeField] private GameObject redPiece;
+
 
     void Start()
     {
@@ -26,11 +29,14 @@ public class DiceRoll : MonoBehaviour
         if (player1.GetComponent<PlayerTurns>().player1turn)
         {
             player1text.text = "Dice Rolled : "+rollnum;
+            redPiece.GetComponent<PieceMovement>().movePiece(rollnum);
         }
         else if (player1.GetComponent<PlayerTurns>().player2turn)
         {
             player2text.text = "Dice Rolled : " + rollnum;
         }
         player1.GetComponent<PlayerTurns>().checkTurn();
+
+
     }
 }
