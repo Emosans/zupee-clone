@@ -819,6 +819,7 @@ GameObject:
   - component: {fileID: 488304389}
   - component: {fileID: 488304388}
   - component: {fileID: 488304390}
+  - component: {fileID: 488304391}
   m_Layer: 5
   m_Name: Red_Piece1
   m_TagString: Red Piece
@@ -896,6 +897,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redPath: {fileID: 692277718}
+--- !u!61 &488304391
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488304386}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 32
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 50, y: 100}
+  m_EdgeRadius: 0
 --- !u!1 &511570761
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,6 +1542,8 @@ GameObject:
   - component: {fileID: 693273699}
   - component: {fileID: 693273701}
   - component: {fileID: 693273700}
+  - component: {fileID: 693273702}
+  - component: {fileID: 693273703}
   m_Layer: 5
   m_Name: Red_Piece2
   m_TagString: Red Piece
@@ -1559,6 +1608,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 693273698}
   m_CullTransparentMesh: 1
+--- !u!114 &693273702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693273698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34e5a6fd5ffbb24581bbed7334f8860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redPath: {fileID: 692277718}
+--- !u!61 &693273703
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693273698}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 32
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 50, y: 100}
+  m_EdgeRadius: 0
 --- !u!1 &778447600
 GameObject:
   m_ObjectHideFlags: 0
@@ -3254,7 +3362,9 @@ MonoBehaviour:
   player1: {fileID: 1138132669}
   player1text: {fileID: 2024180377}
   player2text: {fileID: 474516002}
-  redPiece: {fileID: 488304386}
+  redPieces:
+  - {fileID: 488304386}
+  - {fileID: 693273698}
 --- !u!1 &1950723616
 GameObject:
   m_ObjectHideFlags: 0

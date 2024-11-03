@@ -9,7 +9,7 @@ public class DiceRoll : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player2text;
 
     // pieces
-    [SerializeField] private GameObject redPiece;
+    [SerializeField] private GameObject[] redPieces;
 
 
     void Start()
@@ -29,7 +29,15 @@ public class DiceRoll : MonoBehaviour
         if (player1.GetComponent<PlayerTurns>().player1turn)
         {
             player1text.text = "Dice Rolled : "+rollnum;
-            redPiece.GetComponent<PieceMovement>().movePiece(rollnum);
+
+            for(int i = 0; i < redPieces.Length; i++)
+            {
+                if (redPieces[i].GetComponent<PieceMovement>().IsSelected())
+                {
+                    redPieces[i].GetComponent<PieceMovement>().movePiece(rollnum);
+                }
+            }
+
         }
         else if (player1.GetComponent<PlayerTurns>().player2turn)
         {

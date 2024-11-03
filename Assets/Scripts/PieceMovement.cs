@@ -1,12 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PieceMovement : MonoBehaviour
+public class PieceMovement : MonoBehaviour, IPointerClickHandler
 {
     public Transform redPath;
     private Transform[] redpathnodes;
     private int currentPosition = -1;
     private bool isOnPath = false;
+    private bool isSelected = false;
 
     private void Start()
     {
@@ -15,30 +17,68 @@ public class PieceMovement : MonoBehaviour
         {
             redpathnodes[i] = redPath.GetChild(i);
         }
-        transform.position = transform.position;
     }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform == transform)
+                {
+                    isSelected = true;
+                    Debug.Log(name + " is selected.");
+                }
+            }
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        isSelected = true;
+        Debug.Log(name + "is selected");
+    }
+
+    private void DeselectPiece() { isSelected = false; }
 
     public void movePiece(int diceValue)
     {
-        if (!isOnPath)
+        if (!isSelected)
         {
-            if (diceValue == 6)
-            {
-                isOnPath = true;
-                currentPosition = 0;
-                StartCoroutine(MoveToPosition(redpathnodes[currentPosition].position));
-            }
-            else
-            {
-                Debug.Log("Roll a six to start moving!");
-            }
+            Debug.Log("Select the piece first to move.");
+            return;
+        }
+
+        if (!isOnPath && diceValue == 6)
+        {
+            isOnPath = true;
+            currentPosition = 0;
+            StartCoroutine(MoveToPosition(redpathnodes[currentPosition].position));
+            DeselectPiece();
+        }
+        else if (isOnPath)
+        {
+            StartCoroutine(MoveAlongPath(diceValue));
+            DeselectPiece();
         }
         else
         {
-            StartCoroutine(MoveAlongPath(diceValue));
+            Debug.Log("Roll a six to start moving!");
         }
     }
 
+    public bool IsOnPath()
+    {
+        return isOnPath;
+    }
+    public bool IsSelected()
+    {
+        return isSelected;
+    }
     private IEnumerator MoveAlongPath(int steps)
     {
         for (int i = 0; i < steps; i++)
