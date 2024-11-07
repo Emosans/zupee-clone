@@ -897,6 +897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redPath: {fileID: 692277718}
+  diceBtn: {fileID: 1943320133}
 --- !u!61 &488304391
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1621,6 +1622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redPath: {fileID: 692277718}
+  diceBtn: {fileID: 1943320133}
 --- !u!61 &693273703
 BoxCollider2D:
   m_ObjectHideFlags: 0

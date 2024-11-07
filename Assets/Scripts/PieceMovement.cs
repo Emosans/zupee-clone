@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PieceMovement : MonoBehaviour, IPointerClickHandler
 {
@@ -9,6 +10,8 @@ public class PieceMovement : MonoBehaviour, IPointerClickHandler
     private int currentPosition = -1;
     private bool isOnPath = false;
     private bool isSelected = false;
+    [SerializeField] private Button diceBtn;
+    //[SerializeField] private DiceRoll diceroll;
 
     private void Start()
     {
@@ -19,28 +22,32 @@ public class PieceMovement : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+    //private void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //        RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.transform == transform)
-                {
-                    isSelected = true;
-                    Debug.Log(name + " is selected.");
-                }
-            }
-        }
-    }
+    //        if (Physics.Raycast(ray, out hit))
+    //        {
+    //            if (hit.transform == transform)
+    //            {
+    //                isSelected = true;
+    //                Debug.Log(name + " is selected.");
+    //            }
+    //        }
+    //    }
+    //}
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        isSelected = true;
-        Debug.Log(name + "is selected");
+        if(diceBtn.GetComponent<DiceRoll>().CanSelectPiece() && diceBtn.GetComponent<DiceRoll>().RolledNumber()>0)
+        {
+            isSelected = true;
+            Debug.Log(name + "is selected");
+            diceBtn.GetComponent<DiceRoll>().MoveSelectedPiece();
+        }
     }
 
     private void DeselectPiece() { isSelected = false; }

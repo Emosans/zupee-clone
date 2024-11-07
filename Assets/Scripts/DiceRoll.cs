@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 public class DiceRoll : MonoBehaviour
@@ -7,10 +8,12 @@ public class DiceRoll : MonoBehaviour
     [SerializeField] private GameObject player1;
     [SerializeField] private TextMeshProUGUI player1text;
     [SerializeField] private TextMeshProUGUI player2text;
+    private int rollnum;
+    private bool canSelectPiece = false;
 
     // pieces
     [SerializeField] private GameObject[] redPieces;
-
+    
 
     void Start()
     {
@@ -25,18 +28,11 @@ public class DiceRoll : MonoBehaviour
 
     public void RollDice()
     {
-        int rollnum = Random.Range(1, 7);
+        rollnum = Random.Range(1, 7);
+        canSelectPiece = true;
         if (player1.GetComponent<PlayerTurns>().player1turn)
         {
             player1text.text = "Dice Rolled : "+rollnum;
-
-            for(int i = 0; i < redPieces.Length; i++)
-            {
-                if (redPieces[i].GetComponent<PieceMovement>().IsSelected())
-                {
-                    redPieces[i].GetComponent<PieceMovement>().movePiece(rollnum);
-                }
-            }
 
         }
         else if (player1.GetComponent<PlayerTurns>().player2turn)
@@ -45,6 +41,46 @@ public class DiceRoll : MonoBehaviour
         }
         player1.GetComponent<PlayerTurns>().checkTurn();
 
-
+        //if (AnyPieceSelected())
+        //{
+        //    MoveSelectedPiece();
+        //}   
     }
+
+    public void MoveSelectedPiece()
+    {
+        foreach (var piece in redPieces)
+        {
+            PieceMovement pieceMovement = piece.GetComponent<PieceMovement>();
+            if (pieceMovement.IsSelected())
+            {
+                pieceMovement.movePiece(rollnum);
+                canSelectPiece = false;
+                break;
+            }
+        }
+    }
+
+    private bool AnyPieceSelected()
+    {
+        foreach (var piece in redPieces)
+        {
+            if (piece.GetComponent<PieceMovement>().IsSelected())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int RolledNumber()
+    {
+        return rollnum;
+    }
+
+    public bool CanSelectPiece()
+    {
+        return canSelectPiece;
+    }
+
 }
