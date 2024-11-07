@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\DiceRoll.cs" />
+    <Compile Include="Assets\Scripts\YellowPieceMovement.cs" />
     <Compile Include="Assets\Scripts\PlayerTurns.cs" />
     <Compile Include="Assets\Scripts\PieceMovement.cs" />
   </ItemGroup>

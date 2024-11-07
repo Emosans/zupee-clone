@@ -13,7 +13,7 @@ public class DiceRoll : MonoBehaviour
 
     // pieces
     [SerializeField] private GameObject[] redPieces;
-    
+    [SerializeField] private GameObject[] yellowPieces;
 
     void Start()
     {
@@ -52,6 +52,18 @@ public class DiceRoll : MonoBehaviour
         foreach (var piece in redPieces)
         {
             PieceMovement pieceMovement = piece.GetComponent<PieceMovement>();
+            if (pieceMovement.IsSelected())
+            {
+                pieceMovement.movePiece(rollnum);
+                canSelectPiece = false;
+                break;
+            }
+        }
+
+
+        foreach (var piece in yellowPieces)
+        {
+            YellowPieceMovement pieceMovement = piece.GetComponent<YellowPieceMovement>();
             if (pieceMovement.IsSelected())
             {
                 pieceMovement.movePiece(rollnum);
