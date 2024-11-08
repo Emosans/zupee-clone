@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PieceMovement : MonoBehaviour, IPointerClickHandler
+public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
 {
     public Transform redPath;
     private Transform[] redpathnodes;

@@ -51,7 +51,7 @@ public class DiceRoll : MonoBehaviour
     {
         foreach (var piece in redPieces)
         {
-            PieceMovement pieceMovement = piece.GetComponent<PieceMovement>();
+            RedPieceMovement pieceMovement = piece.GetComponent<RedPieceMovement>();
             if (pieceMovement.IsSelected())
             {
                 pieceMovement.movePiece(rollnum);
@@ -73,17 +73,17 @@ public class DiceRoll : MonoBehaviour
         }
     }
 
-    private bool AnyPieceSelected()
-    {
-        foreach (var piece in redPieces)
-        {
-            if (piece.GetComponent<PieceMovement>().IsSelected())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    //private bool AnyPieceSelected()
+    //{
+    //    foreach (var piece in redPieces)
+    //    {
+    //        if (piece.GetComponent<PieceMovement>().IsSelected())
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //}
 
     public int RolledNumber()
     {
