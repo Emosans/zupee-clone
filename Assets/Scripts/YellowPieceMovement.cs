@@ -45,7 +45,7 @@ public class YellowPieceMovement : MonoBehaviour, IPointerClickHandler
         if (diceBtn.GetComponent<DiceRoll>().CanSelectPiece() && diceBtn.GetComponent<DiceRoll>().RolledNumber() > 0)
         {
             isSelected = true;
-            Debug.Log(name + "is selected");
+            //Debug.Log(name + "is selected");
             diceBtn.GetComponent<DiceRoll>().MoveSelectedPiece();
         }
     }

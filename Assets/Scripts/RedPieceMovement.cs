@@ -11,6 +11,8 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
     private bool isOnPath = false;
     private bool isSelected = false;
     [SerializeField] private Button diceBtn;
+    private int scorecount = 0;
+    private int eachstepcount = 0;
     //[SerializeField] private DiceRoll diceroll;
 
     private void Start()
@@ -45,7 +47,7 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
         if(diceBtn.GetComponent<DiceRoll>().CanSelectPiece() && diceBtn.GetComponent<DiceRoll>().RolledNumber()>0)
         {
             isSelected = true;
-            Debug.Log(name + "is selected");
+            //Debug.Log(name + "is selected");
             diceBtn.GetComponent<DiceRoll>().MoveSelectedPiece();
         }
     }
@@ -65,11 +67,24 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
             isOnPath = true;
             currentPosition = 0;
             StartCoroutine(MoveToPosition(redpathnodes[currentPosition].position));
+            //Debug.Log(gameObject.name+" : " +scorecount); // when at initial pos score will be 0
+            if (gameObject.name == "Red_Piece1" || gameObject.name == "Red_Piece2")
+            {
+                eachstepcount =0;
+            }
+            scorecount += eachstepcount;
+            Debug.Log(scorecount);
             DeselectPiece();
         }
         else if (isOnPath)
         {
             StartCoroutine(MoveAlongPath(diceValue));
+            if (gameObject.name == "Red_Piece1" || gameObject.name == "Red_Piece2")
+            {
+                eachstepcount += diceValue;
+            }
+            scorecount = eachstepcount;
+            Debug.Log(scorecount);
             DeselectPiece();
         }
         else
@@ -88,6 +103,7 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
     }
     private IEnumerator MoveAlongPath(int steps)
     {
+        
         for (int i = 0; i < steps; i++)
         {
             if (currentPosition < redpathnodes.Length - 1)
@@ -98,6 +114,7 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
             else
             {
                 Debug.Log("End of path reached");
+                Debug.Log(gameObject.name + " reached");
                 break;
             }
         }
