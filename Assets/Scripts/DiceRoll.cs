@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class DiceRoll : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player2text;
     private int rollnum;
     private bool canSelectPiece = false;
+    [SerializeField] private Button dicebutton;
 
     // pieces
     [SerializeField] private GameObject[] redPieces;
@@ -23,7 +25,7 @@ public class DiceRoll : MonoBehaviour
 
     void Update()
     {
-        
+        dicebutton.interactable = true;
     }
 
     public void RollDice()
@@ -32,19 +34,75 @@ public class DiceRoll : MonoBehaviour
         canSelectPiece = true;
         if (player1.GetComponent<PlayerTurns>().player1turn)
         {
+            Debug.Log("player 1 turn");
             player1text.text = "Dice Rolled : "+rollnum;
 
         }
-        else if (player1.GetComponent<PlayerTurns>().player2turn)
-        {
-            player2text.text = "Dice Rolled : " + rollnum;
-        }
+        //else if (player1.GetComponent<PlayerTurns>().player2turn)
+        //{
+            
+        //    player2text.text = "Dice Rolled : " + rollnum;
+        //}
         player1.GetComponent<PlayerTurns>().checkTurn();
+
+        if (player1.GetComponent<PlayerTurns>().player2turn)
+        {
+            Debug.Log("player 2 turn");
+            disableButton();
+            StartCoroutine(aimoves());
+        }
 
         //if (AnyPieceSelected())
         //{
         //    MoveSelectedPiece();
         //}   
+    }
+
+    private GameObject randomPiece(GameObject[] randomPieces)
+    {
+        return randomPieces[Random.Range(0,randomPieces.Length)];
+    }
+
+    private IEnumerator aimoves()
+    {
+        yield return new WaitForSeconds(2f);
+
+        rollnum = Random.Range(1, 7);
+        player2text.text = "Dice Rolled : " + rollnum;
+        bool movedpiece = false;
+
+        foreach (var piece in yellowPieces) {
+            YellowPieceMovement pieceMovement = piece.GetComponent<YellowPieceMovement>();
+            if (pieceMovement.IsOnPath() && rollnum>0)
+            {
+                pieceMovement.movePiece(rollnum);
+                //canSelectPiece = false;
+                movedpiece = true;
+                break;
+            }
+            if(!movedpiece && rollnum == 6)
+            {
+                GameObject currentObj = randomPiece(yellowPieces);
+                Debug.Log(currentObj.name);
+                currentObj.GetComponent<YellowPieceMovement>().movePiece(rollnum);
+                break;
+            }
+            yield return new WaitForSeconds(1f);
+
+            player1.GetComponent<PlayerTurns>().checkTurn(); // check for turn again
+
+            enableButton();
+        }
+    }
+
+    private void disableButton()
+    {
+        dicebutton.interactable = false;
+    }
+
+    private void enableButton()
+    {
+        dicebutton.interactable = true;
     }
 
     public void MoveSelectedPiece()
@@ -61,16 +119,16 @@ public class DiceRoll : MonoBehaviour
         }
 
 
-        foreach (var piece in yellowPieces)
-        {
-            YellowPieceMovement pieceMovement = piece.GetComponent<YellowPieceMovement>();
-            if (pieceMovement.IsSelected())
-            {
-                pieceMovement.movePiece(rollnum);
-                canSelectPiece = false;
-                break;
-            }
-        }
+        //foreach (var piece in yellowPieces)
+        //{
+        //    YellowPieceMovement pieceMovement = piece.GetComponent<YellowPieceMovement>();
+        //    if (pieceMovement.IsSelected())
+        //    {
+        //        pieceMovement.movePiece(rollnum);
+        //        canSelectPiece = false;
+        //        break;
+        //    }
+        //}
     }
 
     //private bool AnyPieceSelected()

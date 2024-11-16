@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class YellowPieceMovement : MonoBehaviour, IPointerClickHandler
+public class YellowPieceMovement : MonoBehaviour
 {
     public Transform yellowPath;
     private Transform[] yellowpathnodes;
@@ -40,37 +40,35 @@ public class YellowPieceMovement : MonoBehaviour, IPointerClickHandler
     //    }
     //}
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (diceBtn.GetComponent<DiceRoll>().CanSelectPiece() && diceBtn.GetComponent<DiceRoll>().RolledNumber() > 0)
-        {
-            isSelected = true;
-            //Debug.Log(name + "is selected");
-            diceBtn.GetComponent<DiceRoll>().MoveSelectedPiece();
-        }
-    }
+    //public void OnPointerClick(PointerEventData eventData)
+    //{
+    //    if (diceBtn.GetComponent<DiceRoll>().CanSelectPiece() && diceBtn.GetComponent<DiceRoll>().RolledNumber() > 0)
+    //    {
+    //        isSelected = true;
+    //        //Debug.Log(name + "is selected");
+    //        diceBtn.GetComponent<DiceRoll>().MoveSelectedPiece();
+    //    }
+    //}
 
     private void DeselectPiece() { isSelected = false; }
 
     public void movePiece(int diceValue)
     {
-        if (!isSelected)
-        {
-            Debug.Log("Select the piece first to move.");
-            return;
-        }
+        //if (!isSelected)
+        //{
+        //    Debug.Log("Select the piece first to move.");
+        //    return;
+        //}
 
         if (!isOnPath && diceValue == 6)
         {
             isOnPath = true;
             currentPosition = 0;
             StartCoroutine(MoveToPosition(yellowpathnodes[currentPosition].position));
-            DeselectPiece();
         }
         else if (isOnPath)
         {
             StartCoroutine(MoveAlongPath(diceValue));
-            DeselectPiece();
         }
         else
         {

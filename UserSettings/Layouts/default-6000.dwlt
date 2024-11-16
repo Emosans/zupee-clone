@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Inspector
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -326,7 +326,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Sprites/dice
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -336,16 +336,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Sprites/dice
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Projects\Unity\ZupeeClone
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3eb20000
-    m_LastClickedID: 45630
-    m_ExpandedIDs: 00000000deb1000000ca9a3b
+    m_SelectedIDs: d4d50000
+    m_LastClickedID: 54740
+    m_ExpandedIDs: 00000000deb100003eb2000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -402,8 +402,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c62300000ec8000096090100
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c62300000ec8000096090100c6d50000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -520,9 +520,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: b47e0000
-      m_LastClickedID: 0
-      m_ExpandedIDs: e6faffff96af0000
+      m_SelectedIDs: b6af0000
+      m_LastClickedID: 44982
+      m_ExpandedIDs: e6faffffaeae000096af0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1112,9 +1112,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 199.42542, y: 254.66147, z: 1.1940506}
+    m_Target: {x: 172.31326, y: 149.52556, z: 1.4538019}
     speed: 2
-    m_Value: {x: 199.42542, y: 254.66147, z: 1.1940506}
+    m_Value: {x: 172.31326, y: 149.52556, z: 1.4538019}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1164,9 +1164,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 170.96495
+    m_Target: 146.10686
     speed: 2
-    m_Value: 170.96495
+    m_Value: 146.10686
   m_Ortho:
     m_Target: 1
     speed: 2

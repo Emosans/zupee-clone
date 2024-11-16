@@ -5277,6 +5277,7 @@ MonoBehaviour:
   player1: {fileID: 1138132669}
   player1text: {fileID: 2024180377}
   player2text: {fileID: 474516002}
+  dicebutton: {fileID: 1943320133}
   redPieces:
   - {fileID: 488304386}
   - {fileID: 693273698}
