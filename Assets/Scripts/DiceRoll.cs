@@ -2,7 +2,6 @@ using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 public class DiceRoll : MonoBehaviour
@@ -36,7 +35,7 @@ public class DiceRoll : MonoBehaviour
 
     public void RollDice()
     {
-        rollnum = Random.Range(6, 7);
+        rollnum = Random.Range(1, 7);
         canSelectPiece = true;
         if (player1.GetComponent<PlayerTurns>().player1turn)
         {
