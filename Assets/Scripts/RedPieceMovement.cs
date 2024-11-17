@@ -103,6 +103,7 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
             {
                 Debug.Log("End of path reached");
                 Debug.Log(gameObject.name + " reached");
+                OnPathFinish();
                 break;
             }
         }
@@ -115,5 +116,11 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, 50f * Time.deltaTime);
             yield return null;
         }
+    }
+
+    private void OnPathFinish()
+    {
+        isOnPath = false;
+        Destroy(gameObject);
     }
 }

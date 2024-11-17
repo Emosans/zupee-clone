@@ -16,10 +16,12 @@ public class DiceRoll : MonoBehaviour
     [SerializeField] private Button dicebutton;
     private int playerscore;
     private int aiscore;
+    public List<GameObject> eligibleToMove;
 
     // pieces
     [SerializeField] private GameObject[] redPieces;
-    [SerializeField] private GameObject[] yellowPieces;
+    [SerializeField] public List<GameObject> yellowPieces;
+    
 
     void Start()
     {
@@ -38,7 +40,7 @@ public class DiceRoll : MonoBehaviour
         canSelectPiece = true;
         if (player1.GetComponent<PlayerTurns>().player1turn)
         {
-            Debug.Log("player 1 turn");
+            //Debug.Log("player 1 turn");
             player1text.text = "Dice Rolled : "+rollnum;
 
         }
@@ -51,7 +53,7 @@ public class DiceRoll : MonoBehaviour
 
         if (player1.GetComponent<PlayerTurns>().player2turn)
         {
-            Debug.Log("player 2 turn");
+            //Debug.Log("player 2 turn");
             disableButton();
             StartCoroutine(aimoves());
         }
@@ -62,9 +64,9 @@ public class DiceRoll : MonoBehaviour
         //}   
     }
 
-    private GameObject randomPiece(GameObject[] randomPieces)
+    private GameObject randomPiece(List<GameObject> randomPieces)
     {
-        return randomPieces[Random.Range(0,randomPieces.Length)];
+        return randomPieces[Random.Range(0,randomPieces.Count)];
     }
 
     private IEnumerator aimoves()
@@ -73,17 +75,17 @@ public class DiceRoll : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
 
-            rollnum = Random.Range(1, 7);
+            rollnum = Random.Range(6, 7);
             player2text.text = "Dice Rolled : " + rollnum;
 
-            List<GameObject> eligibleToMove = new List<GameObject>();
+            eligibleToMove = new List<GameObject>();
 
             // if its on path add it to list
-            foreach (var piece in yellowPieces)
+            for(int index=0;index<yellowPieces.Count;index++)
             {
-                if (piece.GetComponent<YellowPieceMovement>().IsOnPath())
+                if (yellowPieces[index].GetComponent<YellowPieceMovement>().IsOnPath())
                 {
-                    eligibleToMove.Add(piece);
+                    eligibleToMove.Add(yellowPieces[index]);
                 }
             }
 
@@ -114,7 +116,6 @@ public class DiceRoll : MonoBehaviour
                     yield return StartCoroutine(aimoves());
                 }
             }
-
             player1.GetComponent<PlayerTurns>().checkTurn();
             enableButton();
         }

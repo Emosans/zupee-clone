@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -96,7 +97,9 @@ public class YellowPieceMovement : MonoBehaviour
             else
             {
                 Debug.Log("End of path reached");
-                //Destroy(gameObject);
+                GameObject reachedobject = diceBtn.GetComponent<DiceRoll>().yellowPieces.FirstOrDefault(obj => obj == gameObject);
+                Debug.Log(reachedobject.name);
+                OnPathFinish(reachedobject);
                 break;
             }
         }
@@ -109,5 +112,13 @@ public class YellowPieceMovement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, 50f * Time.deltaTime);
             yield return null;
         }
+    }
+
+    private void OnPathFinish(GameObject removeobject)
+    {
+        isOnPath = false;
+        //diceBtn.GetComponent<DiceRoll>().eligibleToMove.Remove(removeobject);
+        diceBtn.GetComponent<DiceRoll>().yellowPieces.Remove(removeobject);
+        Destroy(gameObject);
     }
 }
