@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -65,32 +67,45 @@ public class DiceRoll : MonoBehaviour
 
     private IEnumerator aimoves()
     {
-        yield return new WaitForSeconds(2f);
+        if (player1.GetComponent<PlayerTurns>().player2turn)
+        {
+            yield return new WaitForSeconds(2f);
 
-        rollnum = Random.Range(1, 7);
-        player2text.text = "Dice Rolled : " + rollnum;
-        bool movedpiece = false;
+            rollnum = Random.Range(1, 7);
+            player2text.text = "Dice Rolled : " + rollnum;
 
-        foreach (var piece in yellowPieces) {
-            YellowPieceMovement pieceMovement = piece.GetComponent<YellowPieceMovement>();
-            if (pieceMovement.IsOnPath() && rollnum>0)
+            List<GameObject> eligibleToMove = new List<GameObject>();
+
+            // if its on path add it to list
+            foreach (var piece in yellowPieces)
             {
-                pieceMovement.movePiece(rollnum);
-                //canSelectPiece = false;
-                movedpiece = true;
-                break;
+                if (piece.GetComponent<YellowPieceMovement>().IsOnPath())
+                {
+                    eligibleToMove.Add(piece);
+                }
             }
-            if(!movedpiece && rollnum == 6)
+
+            // when 6 is rolled add the random piece to the list
+            if (rollnum == 6)
             {
-                GameObject currentObj = randomPiece(yellowPieces);
-                Debug.Log(currentObj.name);
-                currentObj.GetComponent<YellowPieceMovement>().movePiece(rollnum);
-                break;
+                GameObject randomNewPiece = randomPiece(yellowPieces);
+                if (!randomNewPiece.GetComponent<YellowPieceMovement>().IsOnPath())
+                {
+                    eligibleToMove.Add(randomNewPiece);
+                }
+
             }
-            yield return new WaitForSeconds(1f);
 
-            player1.GetComponent<PlayerTurns>().checkTurn(); // check for turn again
+            // check if list count>0 then choose any random piece to move at each roll
+            if (eligibleToMove.Count > 0)
+            {
+                GameObject randomPieceToMove = eligibleToMove[Random.Range(0, eligibleToMove.Count)];
+                randomPieceToMove.GetComponent<YellowPieceMovement>().movePiece(rollnum);
 
+                yield return new WaitForSeconds(1f);
+            }
+
+            player1.GetComponent<PlayerTurns>().checkTurn();
             enableButton();
         }
     }
@@ -119,16 +134,7 @@ public class DiceRoll : MonoBehaviour
         }
 
 
-        //foreach (var piece in yellowPieces)
-        //{
-        //    YellowPieceMovement pieceMovement = piece.GetComponent<YellowPieceMovement>();
-        //    if (pieceMovement.IsSelected())
-        //    {
-        //        pieceMovement.movePiece(rollnum);
-        //        canSelectPiece = false;
-        //        break;
-        //    }
-        //}
+        
     }
 
     //private bool AnyPieceSelected()

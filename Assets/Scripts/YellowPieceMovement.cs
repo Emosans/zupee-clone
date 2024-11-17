@@ -96,6 +96,7 @@ public class YellowPieceMovement : MonoBehaviour
             else
             {
                 Debug.Log("End of path reached");
+                Destroy(gameObject);
                 break;
             }
         }

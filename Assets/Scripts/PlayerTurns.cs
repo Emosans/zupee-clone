@@ -19,12 +19,13 @@ public class PlayerTurns : MonoBehaviour
 
     public void checkTurn()
     {
+        int currentrollednumber = dicebtn.GetComponent<DiceRoll>().RolledNumber();
         if (player1turn)
         {
             //Debug.Log("player1 turn done");
-            if (dicebtn.GetComponent<DiceRoll>().RolledNumber() == 6)
+            if (currentrollednumber==6)
             {
-                Debug.Log("Repeat");
+                Debug.Log("Repeat for player 1");
                 player1turn = true;
                 player2turn = false;
             } else
@@ -37,9 +38,9 @@ public class PlayerTurns : MonoBehaviour
         else if (player2turn)
         {
             //Debug.Log("player2 turn done");
-            if (dicebtn.GetComponent<DiceRoll>().RolledNumber() == 6)
+            if (currentrollednumber==6)
             {
-                Debug.Log("Repeat");
+                Debug.Log("Repeat for player 2");
                 player1turn = false;
                 player2turn = true;
             }
