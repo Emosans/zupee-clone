@@ -11,8 +11,6 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
     private bool isOnPath = false;
     private bool isSelected = false;
     [SerializeField] private Button diceBtn;
-    private int scorecount = 0;
-    private int eachstepcount = 0;
     //[SerializeField] private DiceRoll diceroll;
 
     private void Start()
@@ -68,23 +66,13 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
             currentPosition = 0;
             StartCoroutine(MoveToPosition(redpathnodes[currentPosition].position));
             //Debug.Log(gameObject.name+" : " +scorecount); // when at initial pos score will be 0
-            if (gameObject.name == "Red_Piece1" || gameObject.name == "Red_Piece2")
-            {
-                eachstepcount =0;
-            }
-            scorecount += eachstepcount;
-            Debug.Log(scorecount);
+            diceBtn.GetComponent<DiceRoll>().updatePlayerScore();
             DeselectPiece();
         }
         else if (isOnPath)
         {
             StartCoroutine(MoveAlongPath(diceValue));
-            if (gameObject.name == "Red_Piece1" || gameObject.name == "Red_Piece2")
-            {
-                eachstepcount += diceValue;
-            }
-            scorecount = eachstepcount;
-            Debug.Log(scorecount);
+            diceBtn.GetComponent<DiceRoll>().updatePlayerScore();
             DeselectPiece();
         }
         else

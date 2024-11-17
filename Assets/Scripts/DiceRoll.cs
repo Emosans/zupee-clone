@@ -14,6 +14,8 @@ public class DiceRoll : MonoBehaviour
     private int rollnum;
     private bool canSelectPiece = false;
     [SerializeField] private Button dicebutton;
+    private int playerscore;
+    private int aiscore;
 
     // pieces
     [SerializeField] private GameObject[] redPieces;
@@ -23,11 +25,11 @@ public class DiceRoll : MonoBehaviour
     {
         //diceText = GetComponentInChildren<Text>();
         Debug.Log("Connected");
+        dicebutton.interactable = true; 
     }
 
     void Update()
     {
-        dicebutton.interactable = true;
     }
 
     public void RollDice()
@@ -102,7 +104,15 @@ public class DiceRoll : MonoBehaviour
                 GameObject randomPieceToMove = eligibleToMove[Random.Range(0, eligibleToMove.Count)];
                 randomPieceToMove.GetComponent<YellowPieceMovement>().movePiece(rollnum);
 
+                aiscore += rollnum;
+                Debug.Log("Player 2 score : "+aiscore);
                 yield return new WaitForSeconds(1f);
+
+                // move again
+                if(rollnum == 6)
+                {
+                    yield return StartCoroutine(aimoves());
+                }
             }
 
             player1.GetComponent<PlayerTurns>().checkTurn();
@@ -157,6 +167,12 @@ public class DiceRoll : MonoBehaviour
     public bool CanSelectPiece()
     {
         return canSelectPiece;
+    }
+
+    public void updatePlayerScore()
+    {
+        playerscore += rollnum;
+        Debug.Log("Player 1 score : "+playerscore);
     }
 
 }
