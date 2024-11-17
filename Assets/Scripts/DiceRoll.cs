@@ -19,7 +19,7 @@ public class DiceRoll : MonoBehaviour
     public List<GameObject> eligibleToMove;
 
     // pieces
-    [SerializeField] private GameObject[] redPieces;
+    [SerializeField] public List<GameObject> redPieces;
     [SerializeField] public List<GameObject> yellowPieces;
     
 
@@ -36,7 +36,7 @@ public class DiceRoll : MonoBehaviour
 
     public void RollDice()
     {
-        rollnum = Random.Range(1, 7);
+        rollnum = Random.Range(6, 7);
         canSelectPiece = true;
         if (player1.GetComponent<PlayerTurns>().player1turn)
         {
@@ -75,7 +75,7 @@ public class DiceRoll : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
 
-            rollnum = Random.Range(6, 7);
+            rollnum = Random.Range(1, 7);
             player2text.text = "Dice Rolled : " + rollnum;
 
             eligibleToMove = new List<GameObject>();

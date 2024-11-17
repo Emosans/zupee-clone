@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -103,7 +104,8 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
             {
                 Debug.Log("End of path reached");
                 Debug.Log(gameObject.name + " reached");
-                OnPathFinish();
+                GameObject currentObj = diceBtn.GetComponent<DiceRoll>().redPieces.FirstOrDefault(obj=> obj == gameObject);
+                OnPathFinish(currentObj);
                 break;
             }
         }
@@ -113,14 +115,15 @@ public class RedPieceMovement : MonoBehaviour, IPointerClickHandler
     {
         while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 50f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 75f * Time.deltaTime);
             yield return null;
         }
     }
 
-    private void OnPathFinish()
+    private void OnPathFinish(GameObject removeobject)
     {
         isOnPath = false;
+        diceBtn.GetComponent<DiceRoll>().redPieces.Remove(removeobject);
         Destroy(gameObject);
     }
 }
